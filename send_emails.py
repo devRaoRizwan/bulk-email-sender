@@ -14,16 +14,9 @@ load_dotenv()
 CSV_PATH = "emails.csv"
 GMAIL_USER = os.getenv("GMAIL_USER")
 GMAIL_PASS = os.getenv("GMAIL_PASS")
-SUBJECT = "Review Requested: Dedicated link with project updates"
-BODY = """Hello,
-
-I hope you are doing well. I wanted to share a dedicated link containing the latest project updates and resources. Please review it when you have a moment.
-
-If you have any questions or feedback, feel free to reply to this message.
-
-Best regards,
-NETSOL Team
-"""
+SUBJECT = " Check it out"
+BODY = "Hey there! I just wanted to share this dedicated link with you. Check it out when you have a moment!"
+CV_PATH = os.path.abspath("user_cv.pdf")
 
 options = uc.ChromeOptions()
 options.add_argument("--start-maximized")
@@ -36,7 +29,7 @@ driver.find_element(By.ID, "identifierNext").click()
 time.sleep(random.uniform(2.5, 4))
 wait.until(EC.presence_of_element_located((By.NAME, "Passwd"))).send_keys(GMAIL_PASS)
 driver.find_element(By.ID, "passwordNext").click()
-time.sleep(12)  # extra time for 2FA / loading
+time.sleep(12)
 
 emails = []
 with open(CSV_PATH, newline='', encoding='utf-8') as f:
@@ -66,19 +59,22 @@ for email in emails:
     body_field.click()
     time.sleep(random.uniform(0.5, 1.0))
 
-    # Type body slowly (more human-like)
     for char in BODY:
         body_field.send_keys(char)
         time.sleep(random.uniform(0.03, 0.09))
 
     time.sleep(random.uniform(1.5, 2.5))
 
+    # Attach CV
+    file_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
+    file_input.send_keys(CV_PATH)
+    time.sleep(random.uniform(3, 5))
+
     send_btn = wait.until(EC.element_to_be_clickable(
         (By.XPATH, "//div[@role='button' and contains(@aria-label, 'Send')]")
     ))
     send_btn.click()
 
-    # Longer delay between emails
     time.sleep(random.uniform(8, 14))
 
 print("Done")
