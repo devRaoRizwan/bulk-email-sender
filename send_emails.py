@@ -14,8 +14,16 @@ load_dotenv()
 CSV_PATH = "emails.csv"
 GMAIL_USER = os.getenv("GMAIL_USER")
 GMAIL_PASS = os.getenv("GMAIL_PASS")
-SUBJECT = "Dedicated link under your pants - Check it out"
-BODY = "Hey there! I just wanted to share this dedicated link with you. Check it out when you have a moment! and i hope NETSOL will be happy to see this link and i hope you will like it too. Thanks!"
+SUBJECT = "Review Requested: Dedicated link with project updates"
+BODY = """Hello,
+
+I hope you are doing well. I wanted to share a dedicated link containing the latest project updates and resources. Please review it when you have a moment.
+
+If you have any questions or feedback, feel free to reply to this message.
+
+Best regards,
+NETSOL Team
+"""
 
 options = uc.ChromeOptions()
 options.add_argument("--start-maximized")
