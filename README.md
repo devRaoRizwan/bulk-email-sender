@@ -44,4 +44,3 @@ Chrome opens, logs in, and composes/sends one message per address with an 8–14
 - Relies on Gmail's current DOM selectors; UI changes will break it.
 - Don't commit `.env` — it holds plaintext credentials.
 - Only send to recipients who have agreed to hear from you; bulk sending can get the account rate-limited or suspended.
-- so we need to ensure that spam is not triggered
